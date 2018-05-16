@@ -29,19 +29,19 @@ fi
 if [[ $2 = "week" ]]
 then
 	cd $dir1
-        for i in *.png; do
-                date1=$(date -f $i +%W)
-                md51=$(md5sum $i)
-                mkdir -p ./week/$date1
-                cp $i ./week/$date1
-                cd ./week/$date1
-                md52=$(md5sum $i)
-                cd -
-                if [ "$md51" == "$md52" ]
-                then
-                        rm -f $i
-                else
-                        echo "$1 is not the same"
-                fi
+    for i in *.png; do
+        date1=$(date -f $i +%W)
+        md51=$(md5sum $i)
+        mkdir -p ./week/$date1
+        cp $i ./week/$date1
+        cd ./week/$date1
+        md52=$(md5sum $i)
+        cd -
+        if [ "$md51" == "$md52" ]
+        then
+            rm -f $i
+        else
+            echo "$1 is not the same"
+        fi
         done
 fi
