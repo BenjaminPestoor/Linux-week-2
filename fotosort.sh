@@ -9,8 +9,8 @@ groep=$2
 if [[ $2 = "maand" ]]
 then
 	cd $dir1
-	for i in *.png; do
-		date1=$(date -f $i +%B)
+	for i in *.png *.bmp *.jpeg *.jpg; do
+		date1=$(date -r $i +%B)
 		md51=$(md5sum $i)
 		mkdir -p ./maand/$date1
 		cp $i ./maand/$date1
@@ -29,8 +29,8 @@ fi
 if [[ $2 = "week" ]]
 then
 	cd $dir1
-    for i in *.png; do
-        date1=$(date -f $i +%W)
+    for i in *.jpg *.png *.bmp .*jpeg; do
+        date1=$(date -r $i +%W)
         md51=$(md5sum $i)
         mkdir -p ./week/$date1
         cp $i ./week/$date1
