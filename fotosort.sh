@@ -7,7 +7,7 @@ dir1="$1"
 shopt -s nullglob
 shopt -s nocaseglob
 number=0
-for i in *.jpg; do
+for i in *.jpeg *.bmp *.png *.jpg; do
 	if [[ $2 = "maand" ]]
 	then
 		date1=$(date -r $i +%B)
