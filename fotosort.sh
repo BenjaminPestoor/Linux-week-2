@@ -1,47 +1,33 @@
 #!/bin/bash
 echo "script week 2"
-mkdir -p maand
-mkdir -p week
 
 dir1=$1
 groep=$2
 
-if [[ $2 = "maand" ]]
-then
-	cd $dir1
-	for i in *.png *.bmp *.jpeg *.jpg; do
-		date1=$(date -r $i +%B)
-		md51=$(md5sum $i)
-		mkdir -p ./maand/$date1
-		cp $i ./maand/$date1
-		cd ./maand/$date1
-		md52=$(md5sum $i)
-		cd -
-		if [ "$md51" == "$md52" ]
-		then
-			rm -f $i
-		else
-			echo "$1 is not the same"
-		fi
-        done
-fi
+cd $dir1
 
-if [[ $2 = "week" ]]
-then
-	cd $dir1
-    for i in *.jpg *.png *.bmp .*jpeg; do
-        date1=$(date -r $i +%W)
-        md51=$(md5sum $i)
-        mkdir -p ./week/$date1
-        cp $i ./week/$date1
-        cd ./week/$date1
-        md52=$(md5sum $i)
-        cd -
-        if [ "$md51" == "$md52" ]
-        then
-            rm -f $i
-        else
-            echo "$1 is not the same"
-        fi
-        done
-fi
+for i in *.png *.bmp *.jpeg *.jpg; do
+	if [[ $2 = "maand" ]]
+	then
+		date1=$(date -r $i +%B)
+		mkdir -r maand
+	elif [[ $2 = "week" ]]
+	then
+		date1=$(date -r $i +%W)
+		mkdir -r week
+	else
+		echo "second variable must be maand or week"
+	fi
+	md51=$(md5sum $i)
+	mkdir -p ./$2/$date1
+	cp $i ./$2/$date1
+	cd ./$2/$date1
+	md52=$(md5sum $i)
+	cd -
+	if [ "$md51" == "$md52" ]
+	then
+		rm -f $i
+	else
+		echo "$1 is not the same"
+	fi
+done
