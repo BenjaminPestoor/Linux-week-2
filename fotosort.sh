@@ -8,6 +8,7 @@ shopt -s nullglob
 shopt -s nocaseglob
 number=0
 for i in *.jpeg *.bmp *.png *.jpg; do
+	i2=${i##*/}
 	if [[ $2 = "maand" ]]
 	then
 		date1=$(date -r $i +%B)
@@ -19,14 +20,13 @@ for i in *.jpeg *.bmp *.png *.jpg; do
 	else
 		echo "second variable must be maand or week"
 	fi
-	md51=$(md5sum $i)
+	md51=($(md5sum $i2))
 	mkdir -p ./$2/$date1
 	cp $i ./$2/$date1
-	cd ./$2/$date1
-	md52=$(md5sum $i)
-	cd ~-
+	md52=($(md5sum ./$2/$date1/$i2))
 	if [ "$md51" == "$md52" ]
 	then
+		echo "hashes are correct"
 		rm -f $i
 	else
 		echo "$1 is not the same"
